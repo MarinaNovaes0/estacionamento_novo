@@ -6,8 +6,8 @@ def conectar_db():
     try:
         return mysql.connector.connect(
             host='localhost',  
-            user='marina',    
-            password='projeto123',  
+            user='Gomes',    
+            password='@Karython0705',  
             database='db_estacionamento' 
         )
     except mysql.connector.Error as err:
@@ -79,11 +79,10 @@ def inserir_cliente_carro(cursor, conn, nome, telefone, placa, marca):
         cursor.execute(sql_carro, valores_carro)
         carro_id = cursor.lastrowid
 
-        # Inserir entrada e saída
+        # TODO: inserir entada e saida, passar NULL em vez de uma variavel
         data_hora_entrada = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        data_hora_saida = "Sem dados"
-        sql_entrada_saida = "INSERT INTO tb_entrada_saida (ID_CARRO, ID_CLIENTE, DT_HORA_ENTRADA, DT_HORA_SAIDA) VALUES (%s, %s, %s, %s)"
-        valores_entrada_saida = (carro_id, cliente_id, data_hora_entrada, data_hora_saida)
+        sql_entrada_saida = "INSERT INTO tb_entrada_saida (ID_CARRO, ID_CLIENTE, DT_HORA_ENTRADA, DT_HORA_SAIDA) VALUES (%s, %s, %s, NULL)"
+        valores_entrada_saida = (carro_id, cliente_id, data_hora_entrada)
         print(f"Executando SQL: {sql_entrada_saida} com valores {valores_entrada_saida}")
         cursor.execute(sql_entrada_saida, valores_entrada_saida)
 
