@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign-Up/Login Form</title>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="form">
+    <ul class="tab-group">
+      <li class="tab active"><a href="#login">Entrada e Saída</a></li>
+      <li class="tab"><a href="#signup">Cadastro</a></li>
+    </ul>
+  
+    <div class="tab-content">
+      <!-- Entrada e Saída -->
+      <div id="login" class="active">    
+        <h1>Entrada e Saída</h1>
+        <form id="login-form" action="/" method="post">
+          <div class="top-row">
+            <div class="field-wrap">
+              <label for="nome-entrada-saida">
+                <span class="req"></span>
+              </label>
+              <input type="text" id="nome-entrada-saida" required autocomplete="off" placeholder="Nome"/>
+            </div>
+            <div class="field-wrap">
+              <label for="transacao">
+                <span class="req"></span>
+              </label>
+              <select id="transacao" name="transacao" style="padding: 8px; width: 100%;">
+                <option value="" disabled selected>Selecione</option>
+                <option value="entrada">Entrada</option>
+                <option value="saida">Saída</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-wrap">
+            <label for="placa">
+              <span class="req"></span>
+            </label>
+            <input type="text" id="placa" required autocomplete="off" placeholder="Placa Carro"/>
+          </div>
+          <p class="forgot"><a href="#">Listar</a></p>
+          <button class="button button-block">Confirmar</button>
+        </form>
+      </div>
+  
+      <!-- Cadastro -->
+      <div id="signup">  
+        <h1>Cadastro</h1>
+        <form id="signup-form" action="/" method="post">
+          <div class="top-row">
+            <div class="field-wrap">
+              <label for="nome">
+                <span class="req"></span>
+              </label>
+              <input type="text" id="nome" required autocomplete="off" placeholder="Nome"/>
+            </div>
+            <div class="field-wrap">
+              <label for="telefone">
+                <span class="req"></span>
+              </label>
+              <input type="text" id="telefone-cadastro" required autocomplete="off" placeholder="Telefone"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label for="placa-cadastro">
+              <span class="req"></span>
+            </label>
+            <input type="text" id="placa-cadastro" required autocomplete="off" placeholder="Placa Carro"/>
+          </div>
+  
+          <div class="field-wrap">
+            <label for="modelo">
+              <span class="req"></span>
+            </label>
+            <input type="text" id="modelo" required autocomplete="off" placeholder="Modelo do Carro"/>
+          </div>
+  
+          <p class="forgot"><a href="#">Listar</a></p>
+          <button type="submit" class="button button-block">Cadastrar</button>
+        </form>
+      </div>
+    </div><!-- tab-content -->
+  </div> <!-- /form -->
+
+  <!-- Certifique-se de que o caminho para o script está correto -->
+  <script src="/static/js/scripts.js"></script>
+</body>
+</html>
