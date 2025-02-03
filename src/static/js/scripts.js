@@ -199,21 +199,21 @@ document.addEventListener("DOMContentLoaded", function() {
       const nomeNormalizado = normalizeString(nome.value);
   
       // Verificar se a placa já existe no banco de dados
-      fetch(`/api/verificar_placa?placa=${placa.value}`)
+      fetch(`/verificar_placa?placa=${placa.value}`)
         .then(response => response.json())
         .then(data => {
           if (data.exists) {
             showMessage(placa, "Placa já cadastrada");
           } else {
             // Verificar se o nome já existe no banco de dados
-            fetch(`/api/verificar_nome?nome=${nomeNormalizado}`)
+            fetch(`/verificar_nome?nome=${nomeNormalizado}`)
               .then(response => response.json())
               .then(data => {
                 if (data.exists) {
                   showMessage(nome, "Nome já cadastrado");
                 } else {
                   // Se o nome e a placa não existirem, prosseguir com o cadastro
-                  fetch('/api/inserir_cliente_carro', {
+                  fetch('/inserir_cliente_carro', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json'
@@ -244,19 +244,19 @@ document.addEventListener("DOMContentLoaded", function() {
       const nomeNormalizado = normalizeString(nome.value);
   
       // Verificar se o nome e a placa já estão cadastrados juntos
-      fetch(`/api/verificar_nome_placa?nome=${nomeNormalizado}&placa=${placa.value}`)
+      fetch(`/verificar_nome_placa?nome=${nomeNormalizado}&placa=${placa.value}`)
         .then(response => response.json())
         .then(data => {
           if (!data.exists) {
             // Verificar se o nome está cadastrado
-            fetch(`/api/verificar_nome?nome=${nomeNormalizado}`)
+            fetch(`/verificar_nome?nome=${nomeNormalizado}`)
               .then(response => response.json())
               .then(nomeData => {
                 if (nomeData.exists) {
                   showMessage(placa, "Placa não cadastrada");
                 } else {
                   // Verificar se a placa está cadastrada
-                  fetch(`/api/verificar_placa?placa=${placa.value}`)
+                  fetch(`/verificar_placa?placa=${placa.value}`)
                     .then(response => response.json())
                     .then(placaData => {
                       if (placaData.exists) {
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
               });
           } else {
             // Verificar se o nome e a placa estão cadastrados juntos
-            fetch(`/api/verificar_nome_placa?nome=${nomeNormalizado}&placa=${placa.value}`)
+            fetch(`/verificar_nome_placa?nome=${nomeNormalizado}&placa=${placa.value}`)
               .then(response => response.json())
               .then(nomePlacaData => {
                 if (!nomePlacaData.exists) {
@@ -279,14 +279,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                   // Verificar se a entrada está cadastrada antes de permitir a saída
                   if (transacao.value === "saida") {
-                    fetch(`/api/verificar_entrada?placa=${placa.value}`)
+                    fetch(`/verificar_entrada?placa=${placa.value}`)
                       .then(response => response.json())
                       .then(entradaData => {
                         if (!entradaData.exists) {
                           showMessage(placa, "Entrada não cadastrada");
                         } else {
                           // Se a entrada estiver cadastrada, prosseguir com o registro da saída
-                          fetch('/api/registrar_entrada_saida', {
+                          fetch('/registrar_entrada_saida', {
                             method: 'POST',
                             headers: {
                               'Content-Type': 'application/json'
@@ -301,14 +301,14 @@ document.addEventListener("DOMContentLoaded", function() {
                       });
                   } else if (transacao.value === "entrada") {
                     // Verificar se há um registro de saída antes de permitir a entrada
-                    fetch(`/api/verificar_saida?placa=${placa.value}`)
+                    fetch(`/verificar_saida?placa=${placa.value}`)
                       .then(response => response.json())
                       .then(saidaData => {
                         if (!saidaData.exists) {
                           showMessage(placa, "O veículo não tem registro de saída");
                         } else {
                           // Se houver um registro de saída, prosseguir com o registro da entrada
-                          fetch('/api/registrar_entrada_saida', {
+                          fetch('/registrar_entrada_saida', {
                             method: 'POST',
                             headers: {
                               'Content-Type': 'application/json'
@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function() {
                       });
                   } else {
                     // Se for uma entrada, prosseguir com o registro
-                    fetch('/api/registrar_entrada_saida', {
+                    fetch('/registrar_entrada_saida', {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json'
@@ -346,7 +346,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     listarButtonCadastro.addEventListener("click", function(e) {
       e.preventDefault();
-      fetch('/api/listar_dados')
+      fetch('/listar_dados')
         .then(response => response.json())
         .then(data => {
           const uniqueData = [];
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     listarButtonEntradaSaida.addEventListener("click", function(e) {
       e.preventDefault();
-      fetch('/api/listar_dados')
+      fetch('/listar_dados')
         .then(response => response.json())
         .then(data => {
           // Ordenar os dados para que os mais recentes apareçam primeiro

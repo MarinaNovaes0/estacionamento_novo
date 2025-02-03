@@ -3,8 +3,7 @@ from services import conectar_db, registrar_entrada_saida, listar_dados, inserir
 import os
 from datetime import datetime
 import unicodedata
-
-app = Flask(__name__, static_folder='../src/static', template_folder='../src/templates')
+from src import app
 
 def get_db_connection():
     conn = conectar_db()
@@ -24,7 +23,7 @@ def serve_index():
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
 
-@app.route('/api/registrar_entrada_saida', methods=['POST'])
+@app.route('/registrar_entrada_saida', methods=['POST'])
 def api_registrar_entrada_saida():
     data = request.json
     placa = data.get('placa')
@@ -69,7 +68,7 @@ def api_registrar_entrada_saida():
         cursor.close()
         conn.close()
 
-@app.route('/api/inserir_cliente_carro', methods=['POST'])
+@app.route('/inserir_cliente_carro', methods=['POST'])
 def api_inserir_cliente_carro():
     data = request.json
     nome = normalize_string(data.get('nome'))
@@ -96,7 +95,7 @@ def api_inserir_cliente_carro():
         cursor.close()
         conn.close()
 
-@app.route('/api/registrar_entrada', methods=['POST'])
+@app.route('/registrar_entrada', methods=['POST'])
 def api_registrar_entrada():
     data = request.json
     placa = data.get('placa')
@@ -132,7 +131,7 @@ def api_registrar_entrada():
         cursor.close()
         conn.close()
 
-@app.route('/api/verificar_placa', methods=['GET'])
+@app.route('/verificar_placa', methods=['GET'])
 def api_verificar_placa():
     placa = request.args.get('placa')
     conn = get_db_connection()
@@ -147,7 +146,7 @@ def api_verificar_placa():
         cursor.close()
         conn.close()
 
-@app.route('/api/verificar_nome', methods=['GET'])
+@app.route('/verificar_nome', methods=['GET'])
 def api_verificar_nome():
     nome = normalize_string(request.args.get('nome'))
     conn = get_db_connection()
@@ -162,7 +161,7 @@ def api_verificar_nome():
         cursor.close()
         conn.close()
 
-@app.route('/api/verificar_nome_placa', methods=['GET'])
+@app.route('/verificar_nome_placa', methods=['GET'])
 def api_verificar_nome_placa():
     nome = normalize_string(request.args.get('nome'))
     placa = request.args.get('placa')
@@ -178,7 +177,7 @@ def api_verificar_nome_placa():
         cursor.close()
         conn.close()
 
-@app.route('/api/verificar_entrada', methods=['GET'])
+@app.route('/verificar_entrada', methods=['GET'])
 def api_verificar_entrada():
     placa = request.args.get('placa')
     conn = get_db_connection()
@@ -193,7 +192,7 @@ def api_verificar_entrada():
         cursor.close()
         conn.close()
 
-@app.route('/api/verificar_saida', methods=['GET'])
+@app.route('/verificar_saida', methods=['GET'])
 def api_verificar_saida():
     placa = request.args.get('placa')
     conn = get_db_connection()
@@ -208,7 +207,7 @@ def api_verificar_saida():
         cursor.close()
         conn.close()
 
-@app.route('/api/listar_dados', methods=['GET'])
+@app.route('/listar_dados', methods=['GET'])
 def api_listar_dados():
     conn = get_db_connection()
     try:
