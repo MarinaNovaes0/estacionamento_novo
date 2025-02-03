@@ -1,4 +1,10 @@
-from flask import Flask
+# fazer todas as configuracoes aqui, inclusive a instancia do flet
+from flask import Flask, render_template, request, jsonify, send_from_directory
+from .services import *
+import os
+from datetime import datetime
+import unicodedata
 
-app = Flask(__name__, static_folder='../src/static', template_folder='../src/templates')
-app.secret_key = "projeto123"
+
+
+app = Flask(__name__)

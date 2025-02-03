@@ -1,9 +1,7 @@
-from flask import Flask, request, jsonify, send_from_directory
-from services import conectar_db, registrar_entrada_saida, listar_dados, inserir_cliente_carro, verificar_placa, verificar_nome_placa, verificar_nome, verificar_entrada, verificar_saida, obter_dados_cliente, verificar_entrada_sem_saida
-import os
-from datetime import datetime
-import unicodedata
+# importar os arquivos de configuração que estão em init
 from src import app
+from src import *
+
 
 def get_db_connection():
     conn = conectar_db()
@@ -15,9 +13,11 @@ def get_db_connection():
 def normalize_string(s):
     return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn').lower()
 
+# substituição para o render template, é mais simples
 @app.route('/')
 def serve_index():
-    return send_from_directory(app.template_folder, 'index.html')
+    return render_template('index.html')
+
 
 @app.route('/static/<path:path>')
 def serve_static(path):
@@ -218,6 +218,3 @@ def api_listar_dados():
         return jsonify({}), 500
     finally:
         conn.close()
-
-if __name__ == '__main__':
-    app.run(debug=True)
